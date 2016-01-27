@@ -7,12 +7,12 @@ require "../php_templ/db.php";
 function authUser($username, $password) {
 
 	if(empty($username) || empty($password)){
-		echo "empty uname/password";
+		//empty username and password
 		return false;
 	}
 	$conn = connectToDB();
 	if(!$conn){
-		echo "conn failure";
+		echo "conn failure ";
 		return false;
 	}
 
@@ -25,10 +25,8 @@ function authUser($username, $password) {
 
 	$stmnt->fetch();
 	$stmnt->close();
-
 	if(!$salt) {
-		//User wasn't found
-		echo $username . " was not found";
+		echo "user wasn't found ";
 		return false;
 	}
 
@@ -44,7 +42,7 @@ function authUser($username, $password) {
 	while($stmnt->fetch()) {
 		if($uid != $username) {
 			$stmnt->close();
-			echo "username/password not found";
+			echo "user name and password not found ";
 			return false;
 
 		} else {
@@ -63,24 +61,14 @@ function authUser($username, $password) {
 
 $fail=false;
 session_start();
-if(empty($_GET["action"]) || $_GET["action"] == "login") {
-
-	if(authUser($_POST["USERNAME"], $_POST["PASSWORD"])) {
-		$_SESSION["USER"] = $_POST["USERNAME"];	
-		echo "Hello1";
-	} else {
-		echo "Hello2";
-	}
-	
-} else if ($_GET["action"] == "logout") {
-	session_unset();
-	$fail=session_destroy();
-	header('Location: index.php');
-} else {
-	//Should just throw an error for now
-	die("Invalid Action");
+if(authUser($_POST["USERNAME"], $_POST["PASSWORD"])) {
+	echo "True";
 }
-echo $_SESSION["USER"];
+else {
+	echo "False";
+}
+	
+
 
 
 ?>
