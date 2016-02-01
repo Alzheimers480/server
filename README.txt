@@ -1,16 +1,48 @@
-To invoke/test the newuser.php script from the comand line use the following curl:
+There Are currently 4 php scripts and one bash script in the public_html folder.
+There is also 1 php script in the php_templ folder. I will go over each script here.
 
-curl -L http://www.secs.oakland.edu/~scnolton/newuser.php --data "USERNAME=<username>&PASSWORD=<password>&PASSWORD2=<password2>&FNAME=<firstName>&LNAME=<LastName>&EMAIL = <email>"
+---------------------auth.php-----------------------
+auth.php: This script is used to authorize login for a user. it takes 2 paramters: USERNAME and
+PASSWORD. The script will return the echo "True" if the user is authorized to log in.
+The script will echo "False" if the Password is wwrong for that user.
+The script will echo "user wasn't found False" if the username was not found in the database.
 
-the values with <> are where your data goes you do not need quotes around these.
+Here is an example curl for auth.php:
+curl -L http://www.secs.oakland.edu/~scnolton/auth.php --data "USERNAME=switch201&PASSWORD=password"
+It should return "True"
+---------------------auth.php-----------------------
 
-password and password2 must match for the user to be created. if a new user is created you will get the message "New User Created" if it doesn't work you'll get 
-something else I forget what exactly but you can see it in the code.
+---------------------newuser.php-----------------------
+newuser.php: This script is used to add a new user to the USERS2 database.
+This script takes 6 paramters: USERNAME, PASSWORD, PASSWORD2, FNAME, LNAME, and EMAIL
+If everything is filled out correctly, the script will echo "New User Created".
+If something is wrong the script will echo one of the following:
+"one of the fields was blank Unable to create new user"
+"The 2 passwords didn't match Unable to create new user"
+When a new user is created email.php is sent to the the user. when the user clics the link his or her email becomes verified.
 
-To invoke/test the auth.php script from the comand line use the following curl:
+Here is an example curl for newuser.php:
+curl -L http://www.secs.oakland.edu/~scnolton/newuser.php --data "USERNAME=switch202&PASSWORD=password&PASSWORD2=password&FNAME=Grumpy&LNAME=OldFart&EMAIL=scnolton@oakland.edu"
+It should return "New User Created"
+---------------------newuser.php-----------------------
 
-curl -L http://www.secs.oakland.edu/~scnolton/auth.php --data "USERNAME=<username>&PASSWORD=<password>" 
+---------------------var.php-----------------------
+var.php: This script is used to check if a user has verfiyed his or her email or not.
+The script only takes one paramter: USERNAME
+The script will return a "1", if the user has verfied his or heer email. It will return "0"
+note that these are strings from an echo and not integers.
 
-again the <> indicate where you put in text for the username and password.
+Here is an example curl for var.php
+curl -L http://www.secs.oakland.edu/~scnolton/var.php --data "USERNAME=switch201"
+this should return "0" unleess the variable in the database gets changed
+---------------------var.php-----------------------
 
-if it works it will say something like "Login Success" if it fails is will say "Login Failed"
+---------------------email.php-----------------------
+email.php: this is the script we send to users email so that they can verfiy their email.
+when we send them the link to the script we injeect the username paramter into the URL
+so that the database knows what user to flip the verfied bit for.
+---------------------email.php-----------------------
+
+---------------------db.php-----------------------
+This is a reusable script for creating an intial connection to the scnolton database
+---------------------db.php-----------------------
