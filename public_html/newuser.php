@@ -12,11 +12,21 @@ function newUser($username, $password, $password2, $fname, $lname, $email){
 		echo "The 2 passwords didn't match ";
 		return false;
 	}
-	 $conn = connectToDB();
- 	 if(!$conn){
+	$conn = connectToDB();
+ 	if(!$conn){
         	 echo "conn failure ";
                	 return false;
-       	 }
+       	}
+	$stmnt2=$conn->prepare("SELECT * FROM USERS2 WHERE USER_UID = ?;");
+	$stmnt2->bind_param('s', $username);
+	$stmnt2->execute();
+	$stmnt2->store_result();
+	$amount = $stmnt2->num_rows;
+	if($amount>=1){
+		echo "user already exists ";
+		return false;
+	}
+	$stmnt2->close();
 	$stmnt=$conn->prepare("INSERT INTO USERS2(USER_UID,USER_PWDHSH,USER_PWDSALT,USER_FNAME,USER_LNAME, USER_EMAIL, VERIFYED) VALUES(?,?,?,?,?,?,0)");
 	$salt = file_get_contents('/dev/urandom', false, null, 0, 64);
 	$options = array(
@@ -35,9 +45,12 @@ session_start();
 if(newUser($_POST["USERNAME"], $_POST["PASSWORD"], $_POST["PASSWORD2"], $_POST["FNAME"], $_POST["LNAME"], $_POST["EMAIL"])) {
 	echo "New User Created";
 	$mail = $_POST["EMAIL"];
-	shell_exec("sh /SECS/home/s/scnolton/public_html/email.sh scnolton@oakland.edu");
+	$name = $_POST["USERNAME"];
+	$subject = "Welcome to the Who R U";	
+	$message = "http://www.secs.oakland.edu/~scnolton/email.php?USERNAME=$name";
+	mail($mail, $subject, $message);
 }
 else{
-	echo "unable to create new user";
+	echo "Unable to create new user";
 }
 ?>

@@ -19,6 +19,7 @@ If everything is filled out correctly, the script will echo "New User Created".
 If something is wrong the script will echo one of the following:
 "one of the fields was blank Unable to create new user"
 "The 2 passwords didn't match Unable to create new user"
+"user already exists Unable to create new user"
 When a new user is created email.php is sent to the the user. when the user clics the link his or her email becomes verified.
 
 Here is an example curl for newuser.php:
