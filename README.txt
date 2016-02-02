@@ -47,3 +47,18 @@ so that the database knows what user to flip the verfied bit for.
 ---------------------db.php-----------------------
 This is a reusable script for creating an intial connection to the scnolton database
 ---------------------db.php-----------------------
+
+---------------------newacqu.php-----------------------
+newacqu.php: this function will add an acquaintance to the database. (we still need to figure out how to send pictures to my server. The pics are NOT on the database though)
+This script takes 3 paramters: USERNAME, FNAME, LNAME. When calling this functions it is our job to make sure that the USERNAME is unique.
+this script also creates a dir on the server where face pics will be stored. this absolute file path is stored in the database. the file path to the pics is always
+"/SECS/home/s/scnolton/facePics/<Acquaintance-Username>"
+These are the various echos the script can return. you can figure out whan and why each echo takes place based on what they say:
+"New Acquaintance Created"
+"one or more paramters missing Unable to Create New Acquaintance"
+"Acquaintance already exists Unable to Create New Acquaintance"
+"New Acquaintance Created dir already exists!"(the way I have it programed this last one should never happen unless someone deltes a user from the database but doesn't dealete the corisponding dir)
+
+here is a curl you can use to test. make sure you keep the database in order though:
+curl -L http://www.secs.oakland.edu/~scnolton/newacqu.php --data "USERNAME=loopy&FNAME=Grumpy&LNAME=OldFart"
+---------------------newacqua.php-----------------------
