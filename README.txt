@@ -1,4 +1,4 @@
-There Are currently 4 php scripts and one bash script in the public_html folder.
+There are currently 4 php scripts and one bash script in the public_html folder.
 There is also 1 php script in the php_templ folder. I will go over each script here.
 
 ---------------------auth.php-----------------------
@@ -57,6 +57,7 @@ These are the various echos the script can return. you can figure out whan and w
 "New Acquaintance Created"
 "one or more paramters missing Unable to Create New Acquaintance"
 "Acquaintance already exists Unable to Create New Acquaintance"
+<<<<<<< HEAD
 "New Acquaintance Created dir already exists!"(the way I have it programed this last one should never happen unless someone deltes a user from the database but doesn't dealete the corisponding dir)
 here is a curl you can use to test. make sure you keep the database in order though:
 curl -L http://www.secs.oakland.edu/~scnolton/newacqu.php --data "USERNAME=loopy&FNAME=Grumpy&LNAME=OldFart"
@@ -74,3 +75,10 @@ these are the various Echos possible
 here is an example curl you can use to test. make sure you access the database through phpMyAdmin.
 curl -L http://www.secs.oakland.edu/~scnolton/relate.php --data "USERNAME=switch202&ACQUNAME=loopy&RELATION=brother&MESSAGE=my older brother. he is so cool."
 ---------------------relate.php-----------------------
+=======
+"New Acquaintance Created dir already exists!"(the way I have it programmed this last one should never happen unless someone deletes a user from the database but doesn't delete the corresponding dir)
+
+here is a curl you can use to test. make sure you keep the database in order though:
+curl -L http://www.secs.oakland.edu/~scnolton/newacqu.php --data "USERNAME=loopy&FNAME=Grumpy&LNAME=OldFart"
+---------------------newacqua.php-----------------------
+>>>>>>> f6302536dc654496f2d1c59f2f3ee5561439d6b6
