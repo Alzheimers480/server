@@ -43,7 +43,7 @@ function newUser($username, $password, $password2, $fname, $lname, $email){
 $fail=false;
 session_start();
 if(newUser($_POST["USERNAME"], $_POST["PASSWORD"], $_POST["PASSWORD2"], $_POST["FNAME"], $_POST["LNAME"], $_POST["EMAIL"])) {
-	echo "New User Created";
+	echo "True";
 	$mail = $_POST["EMAIL"];
 	$name = $_POST["USERNAME"];
 	$subject = "Welcome to the Who R U";	
@@ -51,6 +51,6 @@ if(newUser($_POST["USERNAME"], $_POST["PASSWORD"], $_POST["PASSWORD2"], $_POST["
 	mail($mail, $subject, $message);
 }
 else{
-	echo "Unable to create new user";
+	echo "False";
 }
 ?>

@@ -40,21 +40,15 @@ function authUser($username, $password) {
 	$stmnt->bind_result($uid);
 
 	while($stmnt->fetch()) {
-		if($uid != $username) {
+		if($uid == $username) {
 			$stmnt->close();
-			echo "user name and password not found ";
-			return false;
+			return true;
 
 		} else {
-			return true;
+			return false;
 		}
 
 	}
-
-	if($stmnt->num_rows == 1){
-		return true;
-	}
-
 	return false;
 }
 
