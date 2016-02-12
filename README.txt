@@ -75,10 +75,20 @@ these are the various Echos possible
 here is an example curl you can use to test. make sure you access the database through phpMyAdmin.
 curl -L http://www.secs.oakland.edu/~scnolton/relate.php --data "USERNAME=switch202&ACQUNAME=loopy&RELATION=brother&MESSAGE=my older brother. he is so cool."
 ---------------------relate.php-----------------------
-=======
-"New Acquaintance Created dir already exists!"(the way I have it programmed this last one should never happen unless someone deletes a user from the database but doesn't delete the corresponding dir)
 
-here is a curl you can use to test. make sure you keep the database in order though:
-curl -L http://www.secs.oakland.edu/~scnolton/newacqu.php --data "USERNAME=loopy&FNAME=Grumpy&LNAME=OldFart"
----------------------newacqua.php-----------------------
->>>>>>> f6302536dc654496f2d1c59f2f3ee5561439d6b6
+
+---------------------delete.php-----------------------
+This script is used to delte a user from the database
+This script only takes the one parameter: "USERNAME"
+It will return "True" if it worked "False" if it didn't work.
+curl -L http://www.secs.oakland.edu/~scnolton/delete.php --data "USERNAME=switch202"
+---------------------delete.php-----------------------
+
+---------------------changepass.php-----------------------
+this script will change a user's password. the idea is that this script can be used for when a user forgets his or her password
+it takes 3 params: "USERNAME", "PASSWORD", and "PASSWORD2"
+password and password 2 must match and this is what the user's new password will be.
+it will return true if it worked and (some message) False if it does not.
+here is an example curl
+curl -L http://www.secs.oakland.edu/~scnolton/changepass.php --data "USERNAME=switch202&PASSWORD=bibidy&PASSWORD2=bibidy"
+---------------------changepass.php-----------------------
